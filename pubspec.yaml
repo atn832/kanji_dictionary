@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.19.0-374.1.beta <3.0.0'
 
 dependencies:
+  json_annotation: ^4.7.0
   json_serializable: ^6.5.4
   xml2json: ^5.3.5
 

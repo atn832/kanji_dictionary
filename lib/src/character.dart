@@ -1,12 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'misc.dart';
+
 part 'character.g.dart';
 
 @JsonSerializable()
 class Character {
   final String literal;
+  final Misc misc;
 
-  Character({required this.literal});
+  Character({required this.literal, required this.misc});
 
   /// Connect the generated [_$CharacterFromJson] function to the `fromJson`
   /// factory.
