@@ -17,13 +17,13 @@ class KanjiDictionary {
 
   static KanjiDictionary? _instance;
 
-  /// An instance of KanjiDictionary with the embedded version of kanji_dictionary2.
+  /// An instance of KanjiDictionary with the embedded version of KANJIDIC2.
   static KanjiDictionary get instance {
     _instance ??= KanjiDictionary.fromXml(XmlDocument.parse(kanjiDic2Xml));
     return _instance!;
   }
 
-  /// Returns a KanjiDictionary from a version of kanji_dictionary2.
+  /// Returns a KanjiDictionary from a version of KANJIDIC2.
   factory KanjiDictionary.fromXml(XmlDocument doc) {
     final dic = doc.getElement('kanjidic2')!;
     final header = dic.getElement('header')!;
