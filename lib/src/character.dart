@@ -22,14 +22,16 @@ class Character {
   }
 
   factory Character.fromXml(XmlElement el) {
+    final readingMeaning = el.getElement('reading_meaning');
     return Character(
         literal: el.getElement('literal')!.text,
         difficulty: Difficulty.fromXml(el.getElement('misc')!),
-        meanings: el
-            .getElement('reading_meaning')!
-            .getElement('rmgroup')!
-            .findElements('meaning')
-            .map((e) => Meaning.fromXml(e))
-            .toList());
+        meanings: readingMeaning != null
+            ? readingMeaning
+                .getElement('rmgroup')!
+                .findElements('meaning')
+                .map((e) => Meaning.fromXml(e))
+                .toList()
+            : []);
   }
 }

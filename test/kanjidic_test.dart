@@ -107,12 +107,18 @@ void main() {
     });
   });
 
-  test('KanjiDictionary', () {
-    final kanjiDictionary =
-        KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
-    expect(kanjiDictionary.fileVersion, 4);
-    expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
-    expect(kanjiDictionary.characters.length, 1);
+  group('KanjiDictionary', () {
+    test('fromXml', () {
+      final kanjiDictionary =
+          KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
+      expect(kanjiDictionary.fileVersion, 4);
+      expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
+      expect(kanjiDictionary.characters.length, 1);
+    });
+
+    test('instance', () {
+      expect(KanjiDictionary.instance.fileVersion, 4);
+    });
   });
 
   group('Deserialization', () {

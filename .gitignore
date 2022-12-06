@@ -10,5 +10,4 @@ build/
 pubspec.lock
 
 # Generated file
-*.json
-*.g.dart
+kanjidic2xml.dart

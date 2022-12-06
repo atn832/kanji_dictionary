@@ -14,6 +14,14 @@ and the Flutter guide for
 TODO: Put a short description of the package here that helps potential users
 know whether this package might be useful for them.
 
+## Compiling
+
+In order to compile the project, generate kanjidic2xml.dart by running:
+
+```sh
+dart bin/generate_kanji_dic2_const.dart
+```
+
 ## Features
 
 TODO: List what your package can do. Maybe include images, gifs, or videos.

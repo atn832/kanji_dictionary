@@ -1,6 +1,8 @@
 import 'package:kanjidic/src/character.dart';
 import 'package:xml/xml.dart';
 
+import 'kanjidic2xml.dart';
+
 class KanjiDictionary {
   final int fileVersion;
   final String databaseVersion;
@@ -12,6 +14,13 @@ class KanjiDictionary {
       required this.databaseVersion,
       required this.creationTime,
       required this.characters});
+
+  static KanjiDictionary? _instance;
+
+  static KanjiDictionary get instance {
+    _instance ??= KanjiDictionary.fromXml(XmlDocument.parse(kanjiDic2Xml));
+    return _instance!;
+  }
 
   factory KanjiDictionary.fromXml(XmlDocument doc) {
     final dic = doc.getElement('kanjidic2')!;
