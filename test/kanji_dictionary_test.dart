@@ -79,7 +79,7 @@ String xmlCharacter = '''<!-- Entry for Kanji: 亜 -->
   </reading_meaning>
 </character>''';
 
-String xmlkanji_dictionary = '''<kanji_dictionary2>
+String xmlKanjidic = '''<kanjidic2>
 <header>
 <!-- kanji_dictionary 2 - XML format kanji database combining the kanji_dictionary
 	and KANJD212 files plus the kanji from JIS X 0213.
@@ -89,14 +89,14 @@ String xmlkanji_dictionary = '''<kanji_dictionary2>
 <date_of_creation>2022-12-05</date_of_creation>
 </header>
 $xmlCharacter
-</kanji_dictionary2>
+</kanjidic2>
 ''';
 
 void main() {
   group('KanjiDictionary', () {
     test('fromXml', () {
       final kanjiDictionary =
-          KanjiDictionary.fromXml(XmlDocument.parse(xmlkanji_dictionary));
+          KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
       expect(kanjiDictionary.fileVersion, 4);
       expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
       expect(kanjiDictionary.characters.length, 1);
