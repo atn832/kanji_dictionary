@@ -1,6 +1,4 @@
-import 'package:kanjidic/kanjidic.dart';
-import 'package:kanjidic/src/kanji_dictionary.dart';
-import 'package:kanjidic/src/language.dart';
+import 'package:kanji_dictionary/kanji_dictionary.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
@@ -81,9 +79,9 @@ String xmlCharacter = '''<!-- Entry for Kanji: 亜 -->
   </reading_meaning>
 </character>''';
 
-String xmlKanjidic = '''<kanjidic2>
+String xmlkanji_dictionary = '''<kanji_dictionary2>
 <header>
-<!-- KANJIDIC 2 - XML format kanji database combining the KANJIDIC
+<!-- kanji_dictionary 2 - XML format kanji database combining the kanji_dictionary
 	and KANJD212 files plus the kanji from JIS X 0213.
 -->
 <file_version>4</file_version>
@@ -91,26 +89,14 @@ String xmlKanjidic = '''<kanjidic2>
 <date_of_creation>2022-12-05</date_of_creation>
 </header>
 $xmlCharacter
-</kanjidic2>
+</kanji_dictionary2>
 ''';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
-  });
-
   group('KanjiDictionary', () {
     test('fromXml', () {
       final kanjiDictionary =
-          KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
+          KanjiDictionary.fromXml(XmlDocument.parse(xmlkanji_dictionary));
       expect(kanjiDictionary.fileVersion, 4);
       expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
       expect(kanjiDictionary.characters.length, 1);

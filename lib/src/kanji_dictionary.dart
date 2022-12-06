@@ -1,4 +1,4 @@
-import 'package:kanjidic/src/character.dart';
+import 'package:kanji_dictionary/src/character.dart';
 import 'package:xml/xml.dart';
 
 import 'kanjidic2xml.dart';
@@ -17,13 +17,15 @@ class KanjiDictionary {
 
   static KanjiDictionary? _instance;
 
+  /// An instance of KanjiDictionary with the embedded version of kanji_dictionary2.
   static KanjiDictionary get instance {
     _instance ??= KanjiDictionary.fromXml(XmlDocument.parse(kanjiDic2Xml));
     return _instance!;
   }
 
+  /// Returns a KanjiDictionary from a version of kanji_dictionary2.
   factory KanjiDictionary.fromXml(XmlDocument doc) {
-    final dic = doc.getElement('kanjidic2')!;
+    final dic = doc.getElement('kanji_dictionary2')!;
     final header = dic.getElement('header')!;
     return KanjiDictionary(
         fileVersion: int.parse(header.getElement('file_version')!.text),

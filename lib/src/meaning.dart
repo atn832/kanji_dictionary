@@ -1,4 +1,4 @@
-import 'package:kanjidic/src/language.dart';
+import 'package:kanji_dictionary/src/language.dart';
 import 'package:xml/xml.dart';
 
 class Meaning {
