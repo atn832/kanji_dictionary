@@ -6,8 +6,9 @@ part 'misc.g.dart';
 class Misc {
   // It should be an int but the JSON is a String, so we leave it at that.
   final String jlpt;
+  final String grade;
 
-  Misc({required this.jlpt});
+  Misc({required this.jlpt, required this.grade});
 
   /// Connect the generated [_$MiscFromJson] function to the `fromJson`
   /// factory.

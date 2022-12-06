@@ -23,6 +23,7 @@ void main() {
       final character = Character.fromJson(jsonDecode(jsonCharacter));
       expect(character.literal, '亜');
       expect(character.misc.jlpt, '1');
+      expect(character.misc.grade, '8');
     });
   });
 }
