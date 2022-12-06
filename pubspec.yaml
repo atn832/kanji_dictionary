@@ -1,0 +1,16 @@
+name: kanjidic
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: '>=2.19.0-374.1.beta <3.0.0'
+
+dependencies:
+  json_serializable: ^6.5.4
+  xml2json: ^5.3.5
+
+dev_dependencies:
+  build_runner: ^2.3.2
+  lints: ^2.0.0
+  test: ^1.16.0
