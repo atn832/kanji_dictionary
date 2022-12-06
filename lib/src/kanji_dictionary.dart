@@ -25,7 +25,7 @@ class KanjiDictionary {
 
   /// Returns a KanjiDictionary from a version of kanji_dictionary2.
   factory KanjiDictionary.fromXml(XmlDocument doc) {
-    final dic = doc.getElement('kanji_dictionary2')!;
+    final dic = doc.getElement('kanjidic2')!;
     final header = dic.getElement('header')!;
     return KanjiDictionary(
         fileVersion: int.parse(header.getElement('file_version')!.text),
