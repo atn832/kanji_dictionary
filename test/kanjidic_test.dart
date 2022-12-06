@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:kanjidic/kanjidic.dart';
+import 'package:kanjidic/src/kanji_dictionary.dart';
 import 'package:kanjidic/src/language.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
@@ -82,6 +81,19 @@ String xmlCharacter = '''<!-- Entry for Kanji: 亜 -->
   </reading_meaning>
 </character>''';
 
+String xmlKanjidic = '''<kanjidic2>
+<header>
+<!-- KANJIDIC 2 - XML format kanji database combining the KANJIDIC
+	and KANJD212 files plus the kanji from JIS X 0213.
+-->
+<file_version>4</file_version>
+<database_version>2022-339</database_version>
+<date_of_creation>2022-12-05</date_of_creation>
+</header>
+$xmlCharacter
+</kanjidic2>
+''';
+
 void main() {
   group('A group of tests', () {
     final awesome = Awesome();
@@ -93,6 +105,14 @@ void main() {
     test('First Test', () {
       expect(awesome.isAwesome, isTrue);
     });
+  });
+
+  test('KanjiDictionary', () {
+    final kanjiDictionary =
+        KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
+    expect(kanjiDictionary.fileVersion, 4);
+    expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
+    expect(kanjiDictionary.characters.length, 1);
   });
 
   group('Deserialization', () {
