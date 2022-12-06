@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/kanji_dictionary.svg)](https://pub.dartlang.org/packages/kanji_dictionary)
 
-Dart implementation of KANJIDIC, a popular Kanji dictionary. See <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
+Dart implementation of KANJIDIC, a popular Kanji dictionary used by jisho.org. See <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
 
 ## Features
 
@@ -32,9 +32,12 @@ void main() {
 ```
 
 Prints out:
-> 亜
-> [Asia, rank next, come after, -ous]
-> 1
+
+```
+亜
+[Asia, rank next, come after, -ous]
+1
+```
 
 ### Using your own custom KANJIDIC xml
 
