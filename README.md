@@ -1,6 +1,6 @@
 # Kanji Dictionary
 
-Dart implementation of KANJIDIC, a Kanji dictionary. See <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
+Dart implementation of KANJIDIC, a popular Kanji dictionary. See <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
 
 ## Features
 
