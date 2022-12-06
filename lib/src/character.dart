@@ -1,6 +1,7 @@
 import 'package:xml/xml.dart';
 
 import 'difficulty.dart';
+import 'language.dart';
 import 'meaning.dart';
 
 class Character {
@@ -12,6 +13,13 @@ class Character {
       {required this.literal,
       required this.difficulty,
       required this.meanings});
+
+  List<String> getMeanings(Language language) {
+    return meanings
+        .where((m) => m.language == language)
+        .map((m) => m.meaning)
+        .toList();
+  }
 
   factory Character.fromXml(XmlElement el) {
     return Character(

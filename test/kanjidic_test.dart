@@ -96,9 +96,14 @@ void main() {
   });
 
   group('Deserialization', () {
-    test('xml', () {
+    late Character character;
+
+    setUp(() {
       final el = XmlDocument.parse(xmlCharacter).rootElement;
-      final character = Character.fromXml(el);
+      character = Character.fromXml(el);
+    });
+
+    test('xml', () {
       expect(character.literal, '亜');
       expect(character.difficulty.jlpt, 1);
       expect(character.difficulty.grade, 8);
@@ -108,6 +113,13 @@ void main() {
       expect(meanings.first.language, Language.english);
       expect(meanings[4].meaning, 'Asie');
       expect(meanings[4].language, Language.french);
+    });
+
+    test('getMeanings', () {
+      expect(character.getMeanings(Language.english),
+          ['Asia', 'rank next', 'come after', '-ous']);
+      expect(character.getMeanings(Language.french),
+          ['Asie', 'suivant', 'sub-', 'sous-']);
     });
   });
 }
