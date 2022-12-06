@@ -7,4 +7,3 @@ export 'src/kanjidic_base.dart';
 
 // TODO: Export any libraries intended for clients of this package.
 export 'src/character.dart';
-export 'src/misc.dart';
