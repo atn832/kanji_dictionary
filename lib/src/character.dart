@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:kanjidic/src/reading_meaning.dart';
 
 import 'misc.dart';
 
@@ -9,7 +10,13 @@ class Character {
   final String literal;
   final Misc misc;
 
-  Character({required this.literal, required this.misc});
+  @JsonKey(name: 'reading_meaning')
+  final ReadingMeaning readingMeaning;
+
+  Character(
+      {required this.literal,
+      required this.misc,
+      required this.readingMeaning});
 
   /// Connect the generated [_$CharacterFromJson] function to the `fromJson`
   /// factory.
