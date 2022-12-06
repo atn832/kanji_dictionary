@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:kanjidic/kanjidic.dart';
+import 'package:kanjidic/src/language.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
@@ -104,6 +105,9 @@ void main() {
       final meanings = character.meanings;
       expect(meanings.length, 15);
       expect(meanings.first.meaning, 'Asia');
+      expect(meanings.first.language, Language.english);
+      expect(meanings[4].meaning, 'Asie');
+      expect(meanings[4].language, Language.french);
     });
   });
 }

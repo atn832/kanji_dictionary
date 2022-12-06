@@ -8,6 +8,8 @@ class Meaning {
   Meaning({required this.meaning, required this.language});
 
   factory Meaning.fromXml(XmlElement el) {
-    return Meaning(meaning: el.text, language: Language.english);
+    return Meaning(
+        meaning: el.text,
+        language: Language.fromString(el.getAttribute('m_lang') ?? 'en'));
   }
 }
