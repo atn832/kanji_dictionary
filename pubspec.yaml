@@ -13,3 +13,7 @@ dependencies:
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0
+
+# Prevent dart pub publish from ignoring this file
+false_secrets:
+ - /lib/src/kanjidic2xml.dart
