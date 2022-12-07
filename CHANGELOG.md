@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Prevent a race condition when initializing singleton instance.
+
 ## 1.0.2
 
 - Load data in an isolate to prevent blocking UIs.
