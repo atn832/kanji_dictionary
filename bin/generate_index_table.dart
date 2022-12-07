@@ -14,38 +14,40 @@ const books = Book.values;
 //   Book.nelson_n
 // ];
 
+Getter bookGetter(Book book) => (Character c) => c.index.indexes[book];
+
 main() {
   Map<Book, int> gradeDifference = Map.fromEntries([
-    for (final index in books)
+    for (final book in books)
       MapEntry(
-          index,
+          book,
           computeGradeDifference(KanjiDictionary.instance
-              .charactersByBookOrder(index)
+              .charactersBy([bookGetter(book)])
               .take(kanjiCount)
               .toList()))
   ]);
 
-  SplayTreeSet<Book> sortedIndexes = SplayTreeSet.from(books, (i1, i2) {
+  SplayTreeSet<Book> sortedBooks = SplayTreeSet.from(books, (i1, i2) {
     final diff = gradeDifference[i1]!.compareTo(gradeDifference[i2]!);
     return diff != 0 ? diff : i1.bookName.compareTo(i2.bookName);
   });
 
   List<List<String>> matrix = [
     [
-      for (final index in sortedIndexes)
-        '${index.bookName} ${gradeDifference[index]}'
+      for (final book in sortedBooks)
+        '${book.bookName} ${gradeDifference[book]}'
     ]
   ];
 
-  Map<Book, List<Character>> indexToCharacters = Map.fromEntries([
-    for (final index in sortedIndexes)
-      MapEntry(index, KanjiDictionary.instance.charactersByBookOrder(index))
+  Map<Book, List<Character>> bookToCharacters = Map.fromEntries([
+    for (final book in sortedBooks)
+      MapEntry(book, KanjiDictionary.instance.charactersBy([bookGetter(book)]))
   ]);
   for (int i = 0; i < kanjiCount; i++) {
     matrix.add([
-      for (final index in sortedIndexes)
-        indexToCharacters[index]!.length > i
-            ? '${indexToCharacters[index]![i].literal} (grade ${indexToCharacters[index]![i].difficulty.grade})'
+      for (final book in sortedBooks)
+        bookToCharacters[book]!.length > i
+            ? '${bookToCharacters[book]![i].literal} (grade ${bookToCharacters[book]![i].difficulty.grade})'
             : ''
     ]);
   }
@@ -53,8 +55,7 @@ main() {
 }
 
 int computeGradeDifference(List<Character> characters) {
-  final charactersByGrade = KanjiDictionary.instance
-      .charactersByGrade()
+  final charactersByGrade = KanjiDictionary.instance.charactersByGrade
       .take(characters.length)
       .toList();
   var difference = 0;

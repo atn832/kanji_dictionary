@@ -148,34 +148,20 @@ void main() {
     });
 
     test('sorting', () {
-      final heisig6 = KanjiDictionary.instance
-          .charactersByBookOrder(Book.heisig6)
+      final easiestKanji = KanjiDictionary.instance.charactersByDifficulty
           .take(5)
           .map(toLiteral)
           .toList();
-      final halpernKanjiLearners = KanjiDictionary.instance
-          .charactersByBookOrder(Book.halpern_kkld_2ed)
-          .take(5)
-          .map(toLiteral)
-          .toList();
-      final nelsonC = KanjiDictionary.instance
-          .charactersByBookOrder(Book.nelson_c)
-          .take(5)
-          .map(toLiteral)
-          .toList();
-      expect(heisig6, ['一', '二', '三', '四', '五']);
-      expect(halpernKanjiLearners, ['川', '小', '水', '心', '旧']);
-      expect(nelsonC, ['一', '丁', '兀', '于', '与']);
+      expect(easiestKanji, ['一', '二', '三', '四', '五']);
     });
 
     test('advanced sorting', () {
       getNegativeJlpt(Character c) =>
           c.difficulty.jlpt != null ? -c.difficulty.jlpt! : null;
-      getHenshallIndex(Character c) => c.index.indexes[Book.henshall3];
 
       // Sort by decreasing JLPT level and increasing Henshall3 index.
       final sorted = KanjiDictionary.instance
-          .charactersBy([getNegativeJlpt, getHenshallIndex]);
+          .charactersBy([getNegativeJlpt, defaultDifficultyGetter]);
 
       final sortedJlpt = sorted.map((c) => c.difficulty.jlpt).toList();
       // Make a copy.
@@ -190,7 +176,7 @@ void main() {
       for (final jlpt in jlptValues) {
         final sortedHenshall = sorted
             .where((c) => c.difficulty.jlpt == jlpt)
-            .map(getHenshallIndex)
+            .map(defaultDifficultyGetter)
             // It is possible for Henshall indexes to be missing.
             .where((element) => element != null)
             .toList();
@@ -200,6 +186,15 @@ void main() {
         forceSortedHenshall.sort();
         expect(sortedHenshall, forceSortedHenshall);
       }
+    });
+
+    test(
+        'charactersByGrade does not lose any character from sorting with two getters',
+        () {
+      expect(
+          KanjiDictionary.instance.charactersByGrade,
+          containsAll(KanjiDictionary.instance
+              .charactersBy([(c) => c.difficulty.grade])));
     });
   });
 }

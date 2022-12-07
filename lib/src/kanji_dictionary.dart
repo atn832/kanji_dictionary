@@ -4,6 +4,15 @@ import 'package:xml/xml.dart';
 import 'book_index.dart';
 import 'kanjidic2xml.dart';
 
+/// A getter for use in [sort] to sort by difficulty using the index in
+/// [Book.henshall3]. This book gives the most beginner-friendly ordering of
+/// characters.
+int? defaultDifficultyGetter(Character c) => c.index.indexes[Book.henshall3];
+
+/// A function that returns a [Comparable]? from a [Character], used in
+/// [KanjiDictionary.sort].
+typedef Getter = Comparable? Function(Character);
+
 class KanjiDictionary {
   final int fileVersion;
   final String databaseVersion;
@@ -17,21 +26,28 @@ class KanjiDictionary {
       required List<Character> characters})
       : _characters = characters;
 
-  /// Returns a copy of the Dictionary's characters. Note: a new list is
-  /// returned so that you can safely manipulate it. However, each Character is
-  /// mutable.
+  /// Returns a copy of all the Dictionary's characters in the order of the XML.
+  /// Note: a new list is returned so that you can safely manipulate it.
+  /// However, each Character is mutable.
   List<Character> get characters => _characters.toList();
 
-  /// Lists out characters in the order of a given book.
-  List<Character> charactersByBookOrder(Book index) {
-    return charactersBy([(c) => c.index.indexes[index]]);
-  }
+  /// Returns a sorted copy of the Dictionary's characters by difficulty. See
+  /// [defaultDifficultyGetter].
+  List<Character> get charactersByDifficulty =>
+      charactersBy([defaultDifficultyGetter]);
 
-  List<Character> charactersByGrade() {
-    return charactersBy([(c) => c.difficulty.grade]);
-  }
+  /// Returns a sorted copy of the Dictionary's characters by grade, then
+  /// difficulty. See [defaultDifficultyGetter].
+  List<Character> get charactersByGrade =>
+      charactersBy([(c) => c.difficulty.grade, defaultDifficultyGetter]);
 
-  List<Character> charactersBy(List<Comparable? Function(Character)> getters) {
+  /// Returns a filtered and sorted list of characters. The filtering is done
+  /// using the first getter. It removes all characters for which the first
+  /// getter returns null. Then the filtering is done using each getter in
+  /// order.
+  static List<Character> sort(List<Character> characters,
+      List<Comparable? Function(Character)> getters) {
+    assert(getters.isNotEmpty);
     final sortedCharacters =
         characters.where((c) => getters.first(c) != null).toList();
     sortedCharacters.sort((c1, c2) {
@@ -55,6 +71,12 @@ class KanjiDictionary {
       return c1.literal.compareTo(c2.literal);
     });
     return sortedCharacters;
+  }
+
+  /// Returns a copy of characters filtered and sorted with the given getters.
+  /// See [sort] for implementation details.
+  List<Character> charactersBy(List<Getter> getters) {
+    return sort(characters, getters);
   }
 
   static KanjiDictionary? _instance;
