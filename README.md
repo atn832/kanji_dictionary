@@ -64,9 +64,9 @@ Prints out:
 ```dart
 import 'dart:io';
 
-main() {
-  final xmlKanjidic = File([your own kanjidic2.xml]).readAsStringSync();
-  final kanjiDictionary = KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
+main() async {
+  final xmlKanjidic = await File([your own kanjidic2.xml]).readAsString();
+  final kanjiDictionary = await KanjiDictionary.fromXml(xmlKanjidic);
 }
 ```
 

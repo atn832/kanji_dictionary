@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Load data in an isolate to prevent blocking UIs.
+
 ## 1.0.1+2
 
 - Cleaned up some docs.
