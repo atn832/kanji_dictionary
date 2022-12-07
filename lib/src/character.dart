@@ -1,6 +1,6 @@
 import 'package:xml/xml.dart';
 
-import 'dictionary_index.dart';
+import 'book_index.dart';
 import 'difficulty.dart';
 import 'language.dart';
 import 'meaning.dart';
@@ -9,7 +9,7 @@ class Character {
   final String literal;
   final Difficulty difficulty;
   final List<Meaning> meanings;
-  final DictionaryIndex index;
+  final BookIndex index;
 
   Character(
       {required this.literal,
@@ -36,6 +36,6 @@ class Character {
                 .map((e) => Meaning.fromXml(e))
                 .toList()
             : [],
-        index: DictionaryIndex.fromXml(el.getElement('dic_number')));
+        index: BookIndex.fromXml(el.getElement('dic_number')));
   }
 }

@@ -1,6 +1,8 @@
 import 'package:xml/xml.dart';
 
-enum Indexes {
+/// All the books listed in KANJIDIC except for oneill_names, moro and
+/// busy_people because they do not index it as simply the kanji index.
+enum Book {
   nelson_c(code: 'nelson_c', bookName: 'Nelson (Classic) number'),
   nelson_n(code: 'nelson_n', bookName: 'Nelson (New) number'),
   halpern_njecd(code: 'halpern_njecd', bookName: 'NJECD number'),
@@ -32,28 +34,28 @@ enum Indexes {
       bookName: 'Kodansha Compact Kanji Guide number'),
   maniette(code: 'maniette', bookName: 'Maniette number');
 
-  const Indexes({required this.code, required this.bookName});
+  const Book({required this.code, required this.bookName});
 
   /// The code in attribute dr_type.
   final String code;
   final String bookName;
 }
 
-class DictionaryIndex {
-  final Map<Indexes, int> indexes;
+class BookIndex {
+  final Map<Book, int> indexes;
 
-  DictionaryIndex({required this.indexes});
+  BookIndex({required this.indexes});
 
-  factory DictionaryIndex.fromXml(XmlElement? el) {
-    if (el == null) return DictionaryIndex(indexes: {});
-    return DictionaryIndex(indexes: {
-      for (final index in Indexes.values)
+  factory BookIndex.fromXml(XmlElement? el) {
+    if (el == null) return BookIndex(indexes: {});
+    return BookIndex(indexes: {
+      for (final index in Book.values)
         if (getIndex(el, index) != null) index: getIndex(el, index)!
     });
   }
 }
 
-int? getIndex(XmlElement el, Indexes index) {
+int? getIndex(XmlElement el, Book index) {
   XmlNode? indexNode;
   try {
     indexNode =

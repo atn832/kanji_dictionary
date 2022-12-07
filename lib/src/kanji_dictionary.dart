@@ -1,7 +1,7 @@
 import 'package:kanji_dictionary/src/character.dart';
 import 'package:xml/xml.dart';
 
-import 'dictionary_index.dart';
+import 'book_index.dart';
 import 'kanjidic2xml.dart';
 
 class KanjiDictionary {
@@ -16,30 +16,26 @@ class KanjiDictionary {
       required this.creationTime,
       required this.characters});
 
-  List<Character> charactersByIndex(Indexes index) {
-    final sortedCharacters = KanjiDictionary.instance.characters
-        .where((c) => c.index.indexes[index] != null)
-        .toList();
-    sortedCharacters.sort((c1, c2) {
-      final i1 = c1.index.indexes[index];
-      final i2 = c2.index.indexes[index];
-      assert(i1 != null);
-      assert(i2 != null);
-      return i1!.compareTo(i2!);
-    });
-    return sortedCharacters;
+  /// Lists out characters in the order of a given book.
+  List<Character> charactersByBookOrder(Book index) {
+    return charactersBy((c) => c.index.indexes[index]);
   }
 
   List<Character> charactersByGrade() {
+    return charactersBy((c) => c.difficulty.grade);
+  }
+
+  List<Character> charactersBy(Comparable? Function(Character) getter) {
     final sortedCharacters = KanjiDictionary.instance.characters
-        .where((c) => c.difficulty.grade != null)
+        .where((c) => getter(c) != null)
         .toList();
     sortedCharacters.sort((c1, c2) {
-      final i1 = c1.difficulty.grade;
-      final i2 = c2.difficulty.grade;
+      final i1 = getter(c1);
+      final i2 = getter(c2);
       assert(i1 != null);
-      assert(i2 != null);
-      return i1!.compareTo(i2!);
+      final compare = i1!.compareTo(i2);
+      // Use literal as a tie breaker.
+      return compare != 0 ? compare : c1.literal.compareTo(c2.literal);
     });
     return sortedCharacters;
   }

@@ -7,8 +7,8 @@ import 'package:kanji_dictionary/kanji_dictionary.dart';
 const kanjiCount = 1000;
 
 main() {
-  Map<Indexes, int> gradeDifference = Map.fromEntries([
-    for (final index in Indexes.values)
+  Map<Book, int> gradeDifference = Map.fromEntries([
+    for (final index in Book.values)
       MapEntry(
           index,
           computeGradeDifference(KanjiDictionary.instance
@@ -17,8 +17,7 @@ main() {
               .toList()))
   ]);
 
-  SplayTreeSet<Indexes> sortedIndexes =
-      SplayTreeSet.from(Indexes.values, (i1, i2) {
+  SplayTreeSet<Book> sortedIndexes = SplayTreeSet.from(Book.values, (i1, i2) {
     final diff = gradeDifference[i1]!.compareTo(gradeDifference[i2]!);
     return diff != 0 ? diff : i1.bookName.compareTo(i2.bookName);
   });
@@ -30,7 +29,7 @@ main() {
     ]
   ];
 
-  Map<Indexes, List<Character>> indexToCharacters = Map.fromEntries([
+  Map<Book, List<Character>> indexToCharacters = Map.fromEntries([
     for (final index in sortedIndexes)
       MapEntry(index, KanjiDictionary.instance.charactersByIndex(index))
   ]);

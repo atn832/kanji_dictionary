@@ -135,24 +135,24 @@ void main() {
     });
 
     test('dictionary index', () {
-      expect(character.index.indexes[Indexes.halpern_kkld_2ed], 2966);
-      expect(character.index.indexes[Indexes.heisig6], 1950);
-      expect(character.index.indexes[Indexes.nelson_c], 43);
+      expect(character.index.indexes[Book.halpern_kkld_2ed], 2966);
+      expect(character.index.indexes[Book.heisig6], 1950);
+      expect(character.index.indexes[Book.nelson_c], 43);
     });
 
     test('sorting', () {
       final heisig6 = KanjiDictionary.instance
-          .charactersByIndex(Indexes.heisig6)
+          .charactersByBookOrder(Book.heisig6)
           .take(5)
           .map(toLiteral)
           .toList();
       final halpernKanjiLearners = KanjiDictionary.instance
-          .charactersByIndex(Indexes.halpern_kkld_2ed)
+          .charactersByBookOrder(Book.halpern_kkld_2ed)
           .take(5)
           .map(toLiteral)
           .toList();
       final nelsonC = KanjiDictionary.instance
-          .charactersByIndex(Indexes.nelson_c)
+          .charactersByBookOrder(Book.nelson_c)
           .take(5)
           .map(toLiteral)
           .toList();
