@@ -5,19 +5,27 @@ import 'dart:math';
 import 'package:kanji_dictionary/kanji_dictionary.dart';
 
 const kanjiCount = 1000;
+// Books to index.
+const books = Book.values;
+// const books = [
+//   Book.henshall3,
+//   Book.crowley,
+//   Book.halpern_kkld_2ed,
+//   Book.nelson_n
+// ];
 
 main() {
   Map<Book, int> gradeDifference = Map.fromEntries([
-    for (final index in Book.values)
+    for (final index in books)
       MapEntry(
           index,
           computeGradeDifference(KanjiDictionary.instance
-              .charactersByIndex(index)
+              .charactersByBookOrder(index)
               .take(kanjiCount)
               .toList()))
   ]);
 
-  SplayTreeSet<Book> sortedIndexes = SplayTreeSet.from(Book.values, (i1, i2) {
+  SplayTreeSet<Book> sortedIndexes = SplayTreeSet.from(books, (i1, i2) {
     final diff = gradeDifference[i1]!.compareTo(gradeDifference[i2]!);
     return diff != 0 ? diff : i1.bookName.compareTo(i2.bookName);
   });
@@ -31,14 +39,13 @@ main() {
 
   Map<Book, List<Character>> indexToCharacters = Map.fromEntries([
     for (final index in sortedIndexes)
-      MapEntry(index, KanjiDictionary.instance.charactersByIndex(index))
+      MapEntry(index, KanjiDictionary.instance.charactersByBookOrder(index))
   ]);
   for (int i = 0; i < kanjiCount; i++) {
     matrix.add([
       for (final index in sortedIndexes)
         indexToCharacters[index]!.length > i
-            ? (indexToCharacters[index]![i].literal +
-                indexToCharacters[index]![i].difficulty.grade.toString())
+            ? '${indexToCharacters[index]![i].literal} (grade ${indexToCharacters[index]![i].difficulty.grade})'
             : ''
     ]);
   }
