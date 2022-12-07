@@ -17,27 +17,29 @@ class KanjiDictionary {
       required this.characters});
 
   List<Character> charactersByIndex(Indexes index) {
-    final sortedCharacters = KanjiDictionary.instance.characters.toList();
+    final sortedCharacters = KanjiDictionary.instance.characters
+        .where((c) => c.index.indexes[index] != null)
+        .toList();
     sortedCharacters.sort((c1, c2) {
       final i1 = c1.index.indexes[index];
       final i2 = c2.index.indexes[index];
-      if (i1 == null && i2 == null) return c1.literal.compareTo(c2.literal);
-      if (i1 == null) return 1;
-      if (i2 == null) return -1;
-      return i1.compareTo(i2);
+      assert(i1 != null);
+      assert(i2 != null);
+      return i1!.compareTo(i2!);
     });
     return sortedCharacters;
   }
 
   List<Character> charactersByGrade() {
-    final sortedCharacters = KanjiDictionary.instance.characters.toList();
+    final sortedCharacters = KanjiDictionary.instance.characters
+        .where((c) => c.difficulty.grade != null)
+        .toList();
     sortedCharacters.sort((c1, c2) {
       final i1 = c1.difficulty.grade;
       final i2 = c2.difficulty.grade;
-      if (i1 == null && i2 == null) return c1.literal.compareTo(c2.literal);
-      if (i1 == null) return 1;
-      if (i2 == null) return -1;
-      return i1.compareTo(i2);
+      assert(i1 != null);
+      assert(i2 != null);
+      return i1!.compareTo(i2!);
     });
     return sortedCharacters;
   }
