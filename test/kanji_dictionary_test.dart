@@ -94,32 +94,39 @@ $xmlCharacter
 
 void main() {
   group('KanjiDictionary', () {
-    test('fromXml', () {
-      final kanjiDictionary =
-          KanjiDictionary.fromXml(XmlDocument.parse(xmlKanjidic));
-      expect(kanjiDictionary.fileVersion, 4);
-      expect(kanjiDictionary.creationTime, DateTime(2022, 12, 5));
-      expect(kanjiDictionary.characters.length, 1);
+    late KanjiDictionary dictionary;
+
+    setUp(() async {
+      dictionary = await KanjiDictionary.fromXmlString(xmlKanjidic);
     });
 
-    test('the list of characters is protected', () {
-      final c = KanjiDictionary.instance.characters;
+    test('fromXml', () async {
+      expect(dictionary.fileVersion, 4);
+      expect(dictionary.creationTime, DateTime(2022, 12, 5));
+      expect(dictionary.characters.length, 1);
+    });
+
+    test('the list of characters is protected', () async {
+      final c = dictionary.characters;
       c.clear();
       expect(c, isEmpty);
-      expect(KanjiDictionary.instance.characters, isNotEmpty);
+      expect(dictionary.characters, isNotEmpty);
     });
 
-    test('instance', () {
-      expect(KanjiDictionary.instance.fileVersion, 4);
+    test('instance', () async {
+      expect(dictionary.fileVersion, 4);
     });
   });
 
   group('Deserialization', () {
+    late KanjiDictionary dictionary;
     late Character character;
 
-    setUp(() {
+    setUp(() async {
       final el = XmlDocument.parse(xmlCharacter).rootElement;
       character = Character.fromXml(el);
+
+      dictionary = await KanjiDictionary.instance;
     });
 
     test('xml', () {
@@ -148,10 +155,8 @@ void main() {
     });
 
     test('sorting', () {
-      final easiestKanji = KanjiDictionary.instance.charactersByDifficulty
-          .take(5)
-          .map(toLiteral)
-          .toList();
+      final easiestKanji =
+          dictionary.charactersByDifficulty.take(5).map(toLiteral).toList();
       expect(easiestKanji, ['一', '二', '三', '四', '五']);
     });
 
@@ -160,8 +165,8 @@ void main() {
           c.difficulty.jlpt != null ? -c.difficulty.jlpt! : null;
 
       // Sort by decreasing JLPT level and increasing Henshall3 index.
-      final sorted = KanjiDictionary.instance
-          .charactersBy([getNegativeJlpt, defaultDifficultyGetter]);
+      final sorted =
+          dictionary.charactersBy([getNegativeJlpt, defaultDifficultyGetter]);
 
       final sortedJlpt = sorted.map((c) => c.difficulty.jlpt).toList();
       // Make a copy.
@@ -191,10 +196,8 @@ void main() {
     test(
         'charactersByGrade does not lose any character from sorting with two getters',
         () {
-      expect(
-          KanjiDictionary.instance.charactersByGrade,
-          containsAll(KanjiDictionary.instance
-              .charactersBy([(c) => c.difficulty.grade])));
+      expect(dictionary.charactersByGrade,
+          containsAll(dictionary.charactersBy([(c) => c.difficulty.grade])));
     });
   });
 }

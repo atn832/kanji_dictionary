@@ -16,15 +16,11 @@ const books = Book.values;
 
 Getter bookGetter(Book book) => (Character c) => c.index.indexes[book];
 
-main() {
+main() async {
+  final dictionary = await KanjiDictionary.instance;
   Map<Book, int> gradeDifference = Map.fromEntries([
     for (final book in books)
-      MapEntry(
-          book,
-          computeGradeDifference(KanjiDictionary.instance
-              .charactersBy([bookGetter(book)])
-              .take(kanjiCount)
-              .toList()))
+      MapEntry(book, await computeGradeDifference(dictionary, book))
   ]);
 
   SplayTreeSet<Book> sortedBooks = SplayTreeSet.from(books, (i1, i2) {
@@ -41,7 +37,7 @@ main() {
 
   Map<Book, List<Character>> bookToCharacters = Map.fromEntries([
     for (final book in sortedBooks)
-      MapEntry(book, KanjiDictionary.instance.charactersBy([bookGetter(book)]))
+      MapEntry(book, dictionary.charactersBy([bookGetter(book)]))
   ]);
   for (int i = 0; i < kanjiCount; i++) {
     matrix.add([
@@ -54,10 +50,12 @@ main() {
   File('table.md').writeAsStringSync(toTable(matrix));
 }
 
-int computeGradeDifference(List<Character> characters) {
-  final charactersByGrade = KanjiDictionary.instance.charactersByGrade
-      .take(characters.length)
-      .toList();
+Future<int> computeGradeDifference(
+    KanjiDictionary dictionary, Book book) async {
+  final characters =
+      dictionary.charactersBy([bookGetter(book)]).take(kanjiCount).toList();
+  final charactersByGrade =
+      dictionary.charactersByGrade.take(characters.length).toList();
   var difference = 0;
   for (var i = 0; i < min(charactersByGrade.length, characters.length); i++) {
     final grade = characters[i].difficulty.grade;

@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:kanji_dictionary/src/character.dart';
 import 'package:xml/xml.dart';
 
@@ -82,16 +84,27 @@ class KanjiDictionary {
   static KanjiDictionary? _instance;
 
   /// An instance of [KanjiDictionary] with the embedded version of KANJIDIC2.
-  static KanjiDictionary get instance {
-    _instance ??= KanjiDictionary.fromXml(XmlDocument.parse(kanjiDic2Xml));
+  static Future<KanjiDictionary> get instance async {
+    if (_instance != null) {
+      return Future.value(_instance);
+    }
+    _instance = await KanjiDictionary.fromXmlString(kanjiDic2Xml);
     return _instance!;
   }
 
   /// Returns a [KanjiDictionary] from a version of KANJIDIC2.
-  factory KanjiDictionary.fromXml(XmlDocument doc) {
+  static Future<KanjiDictionary> fromXmlString(String xmlDoc) async {
+    final p = ReceivePort();
+    await Isolate.spawn((p) => _parseKanjiDic(xmlDoc, p), p.sendPort);
+    return await p.first as KanjiDictionary;
+  }
+
+  /// Parse the XML in an isolate.
+  static Future<void> _parseKanjiDic(String xml, SendPort p) async {
+    final doc = XmlDocument.parse(xml);
     final dic = doc.getElement('kanjidic2')!;
     final header = dic.getElement('header')!;
-    return KanjiDictionary(
+    final dictionary = KanjiDictionary(
         fileVersion: int.parse(header.getElement('file_version')!.text),
         databaseVersion: header.getElement('database_version')!.text,
         creationTime:
@@ -100,5 +113,6 @@ class KanjiDictionary {
             .findElements('character')
             .map((el) => Character.fromXml(el))
             .toList());
+    Isolate.exit(p, dictionary);
   }
 }
