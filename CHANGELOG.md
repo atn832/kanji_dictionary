@@ -1,3 +1,7 @@
+## 1.0.1+1
+
+- Cleaned up some docs.
+
 ## 1.0.1
 
 - Implemented `charactersByDifficulty`, `charactersByGrade`, and a custom `sort` function in `KanjiDictionary`.

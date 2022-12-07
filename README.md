@@ -2,14 +2,14 @@
 
 [![pub package](https://img.shields.io/pub/v/kanji_dictionary.svg)](https://pub.dartlang.org/packages/kanji_dictionary)
 
-Dart implementation of KANJIDIC, a popular Kanji dictionary used by jisho.org. See <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
+Dart implementation of KANJIDIC, a popular Kanji dictionary used by https://jisho.org/. See <https://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
 
 ## Features
 
 - lists out all the characters of KANJIDIC.
-- lists out ordered beginner-friendly list of kanji.
+- lists out ordered beginner-friendly list of Kanji.
 - meanings per language.
-- difficulty by jlpt level and grade.
+- difficulty by JLPT level and grade.
 - index from 21 books.
 - can also parse a custom version of KANJIDIC xml.
 
