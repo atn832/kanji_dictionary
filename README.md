@@ -7,8 +7,10 @@ Dart implementation of KANJIDIC, a popular Kanji dictionary used by jisho.org. S
 ## Features
 
 - lists out all the characters of KANJIDIC.
+- lists out ordered beginner-friendly list of kanji.
 - meanings per language.
 - difficulty by jlpt level and grade.
+- index from 21 books.
 - can also parse a custom version of KANJIDIC xml.
 
 ## Getting started
@@ -38,6 +40,24 @@ Prints out:
 [Asia, rank next, come after, -ous]
 1
 ```
+
+### Listing the 15 easiest Kanji
+
+```dart
+import 'package:kanji_dictionary/kanji_dictionary.dart';
+
+void main() {
+  final kanjiDictionary = KanjiDictionary.instance;
+  print(kanjiDictionary.charactersByDifficulty
+      .take(15)
+      .map((c) => c.literal)
+      .join(' '));
+}
+```
+
+Prints out:
+
+> 一 二 三 四 五 六 七 八 九 十 百 千 日 月 火
 
 ### Using your own custom KANJIDIC xml
 

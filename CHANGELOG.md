@@ -1,6 +1,11 @@
+## 1.0.1
+
+- Implemented `charactersByDifficulty`, `charactersByGrade`, and a custom `sort` function in `KanjiDictionary`.
+- Included the index from 21 books.
+
 ## 1.0.0+1
 
-- Expose some extra documentation.
+- Exposed some extra documentation.
 
 ## 1.0.0
 

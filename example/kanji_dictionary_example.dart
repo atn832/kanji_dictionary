@@ -6,4 +6,9 @@ void main() {
   print(character.literal);
   print(character.getMeanings(Language.english));
   print(character.difficulty.jlpt);
+
+  print(kanjiDictionary.charactersByDifficulty
+      .take(15)
+      .map((c) => c.literal)
+      .join(' '));
 }

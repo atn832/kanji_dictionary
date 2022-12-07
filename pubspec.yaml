@@ -1,6 +1,6 @@
 name: kanji_dictionary
 description: Dart implementation of KANJIDIC, a popular Kanji dictionary used by jisho.org.
-version: 1.0.0+1
+version: 1.0.1
 repository: https://github.com/atn832/kanji_dictionary
 homepage: https://www.wafrat.com
 
