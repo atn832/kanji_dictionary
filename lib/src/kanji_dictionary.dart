@@ -81,14 +81,11 @@ class KanjiDictionary {
     return sort(characters, getters);
   }
 
-  static KanjiDictionary? _instance;
+  static Future<KanjiDictionary>? _instance;
 
   /// An instance of [KanjiDictionary] with the embedded version of KANJIDIC2.
   static Future<KanjiDictionary> get instance async {
-    if (_instance != null) {
-      return Future.value(_instance);
-    }
-    _instance = await KanjiDictionary.fromXmlString(kanjiDic2Xml);
+    _instance ??= KanjiDictionary.fromXmlString(kanjiDic2Xml);
     return _instance!;
   }
 
