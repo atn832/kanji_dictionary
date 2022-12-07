@@ -1,6 +1,7 @@
 import 'package:kanji_dictionary/src/character.dart';
 import 'package:xml/xml.dart';
 
+import 'dictionary_index.dart';
 import 'kanjidic2xml.dart';
 
 class KanjiDictionary {
@@ -14,6 +15,19 @@ class KanjiDictionary {
       required this.databaseVersion,
       required this.creationTime,
       required this.characters});
+
+  List<Character> charactersByIndex(Indexes index) {
+    final sortedCharacters = KanjiDictionary.instance.characters.toList();
+    sortedCharacters.sort((c1, c2) {
+      final i1 = c1.index.indexes[index];
+      final i2 = c2.index.indexes[index];
+      if (i1 == null && i2 == null) return c1.literal.compareTo(c2.literal);
+      if (i1 == null) return 1;
+      if (i2 == null) return -1;
+      return i1.compareTo(i2);
+    });
+    return sortedCharacters;
+  }
 
   static KanjiDictionary? _instance;
 

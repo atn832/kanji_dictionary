@@ -1,4 +1,5 @@
 import 'package:kanji_dictionary/kanji_dictionary.dart';
+import 'package:kanji_dictionary/src/dictionary_index.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
@@ -133,5 +134,27 @@ void main() {
       expect(character.getMeanings(Language.french),
           ['Asie', 'suivant', 'sub-', 'sous-']);
     });
+
+    test('dictionary index', () {
+      expect(character.index.indexes[Indexes.halpern_kkld_2ed], 2966);
+      expect(character.index.indexes[Indexes.heisig6], 1950);
+    });
+
+    test('sorting', () {
+      final heisig6 = KanjiDictionary.instance
+          .charactersByIndex(Indexes.heisig6)
+          .take(5)
+          .map(toLiteral)
+          .toList();
+      final halpernKanjiLearners = KanjiDictionary.instance
+          .charactersByIndex(Indexes.halpern_kkld_2ed)
+          .take(5)
+          .map(toLiteral)
+          .toList();
+      expect(heisig6, ['一', '二', '三', '四', '五']);
+      expect(halpernKanjiLearners, ['川', '小', '水', '心', '旧']);
+    });
   });
 }
+
+String toLiteral(Character c) => c.literal;
