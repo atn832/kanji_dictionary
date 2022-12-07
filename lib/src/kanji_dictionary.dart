@@ -8,34 +8,51 @@ class KanjiDictionary {
   final int fileVersion;
   final String databaseVersion;
   final DateTime creationTime;
-  final List<Character> characters;
+  final List<Character> _characters;
 
   KanjiDictionary(
       {required this.fileVersion,
       required this.databaseVersion,
       required this.creationTime,
-      required this.characters});
+      required List<Character> characters})
+      : _characters = characters;
+
+  /// Returns a copy of the Dictionary's characters. Note: a new list is
+  /// returned so that you can safely manipulate it. However, each Character is
+  /// mutable.
+  List<Character> get characters => _characters.toList();
 
   /// Lists out characters in the order of a given book.
   List<Character> charactersByBookOrder(Book index) {
-    return charactersBy((c) => c.index.indexes[index]);
+    return charactersBy([(c) => c.index.indexes[index]]);
   }
 
   List<Character> charactersByGrade() {
-    return charactersBy((c) => c.difficulty.grade);
+    return charactersBy([(c) => c.difficulty.grade]);
   }
 
-  List<Character> charactersBy(Comparable? Function(Character) getter) {
-    final sortedCharacters = KanjiDictionary.instance.characters
-        .where((c) => getter(c) != null)
-        .toList();
+  List<Character> charactersBy(List<Comparable? Function(Character)> getters) {
+    final sortedCharacters =
+        characters.where((c) => getters.first(c) != null).toList();
     sortedCharacters.sort((c1, c2) {
-      final i1 = getter(c1);
-      final i2 = getter(c2);
-      assert(i1 != null);
-      final compare = i1!.compareTo(i2);
-      // Use literal as a tie breaker.
-      return compare != 0 ? compare : c1.literal.compareTo(c2.literal);
+      var it = getters.iterator;
+      while (it.moveNext()) {
+        final getter = it.current;
+        final i1 = getter(c1);
+        final i2 = getter(c2);
+        // If both are missing the value, use the literal as the tie-breaker.
+        if (i1 == null && i2 == null) break;
+        // If i1 is null but i2 is not, we expect i1 to be larger (ie more
+        // complicated) than i2.
+        if (i1 == null) return 1;
+        if (i2 == null) return -1;
+
+        final compare = i1.compareTo(i2);
+        // Use literal as a tie breaker.
+        if (compare != 0) return compare;
+      }
+      // Use the literal as a tie-breaker;
+      return c1.literal.compareTo(c2.literal);
     });
     return sortedCharacters;
   }

@@ -102,6 +102,13 @@ void main() {
       expect(kanjiDictionary.characters.length, 1);
     });
 
+    test('the list of characters is protected', () {
+      final c = KanjiDictionary.instance.characters;
+      c.clear();
+      expect(c, isEmpty);
+      expect(KanjiDictionary.instance.characters, isNotEmpty);
+    });
+
     test('instance', () {
       expect(KanjiDictionary.instance.fileVersion, 4);
     });
@@ -159,6 +166,40 @@ void main() {
       expect(heisig6, ['一', '二', '三', '四', '五']);
       expect(halpernKanjiLearners, ['川', '小', '水', '心', '旧']);
       expect(nelsonC, ['一', '丁', '兀', '于', '与']);
+    });
+
+    test('advanced sorting', () {
+      getNegativeJlpt(Character c) =>
+          c.difficulty.jlpt != null ? -c.difficulty.jlpt! : null;
+      getHenshallIndex(Character c) => c.index.indexes[Book.henshall3];
+
+      // Sort by decreasing JLPT level and increasing Henshall3 index.
+      final sorted = KanjiDictionary.instance
+          .charactersBy([getNegativeJlpt, getHenshallIndex]);
+
+      final sortedJlpt = sorted.map((c) => c.difficulty.jlpt).toList();
+      // Make a copy.
+      final forceSortedJlpt = sortedJlpt.toList();
+      // Sort in decreasing values of JLPT.
+      forceSortedJlpt.sort((a, b) => -a!.compareTo(b!));
+      // JLPT levels should go from 4 to 1.
+      expect(sortedJlpt, forceSortedJlpt);
+
+      final jlptValues = Set<int>.from(sortedJlpt);
+      // Check that the Henshall order is respected within the same JLPT value.
+      for (final jlpt in jlptValues) {
+        final sortedHenshall = sorted
+            .where((c) => c.difficulty.jlpt == jlpt)
+            .map(getHenshallIndex)
+            // It is possible for Henshall indexes to be missing.
+            .where((element) => element != null)
+            .toList();
+        // Make a copy.
+        final forceSortedHenshall = sortedHenshall.toList();
+        // Sort in increasing indexes of Henshall.
+        forceSortedHenshall.sort();
+        expect(sortedHenshall, forceSortedHenshall);
+      }
     });
   });
 }
