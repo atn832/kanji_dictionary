@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:kanji_dictionary/kanji_dictionary.dart';
 
-const kanjiCount = 3000;
+const kanjiCount = 1000;
 
 main() {
   Map<Indexes, int> gradeDifference = Map.fromEntries([
@@ -20,13 +20,13 @@ main() {
   SplayTreeSet<Indexes> sortedIndexes =
       SplayTreeSet.from(Indexes.values, (i1, i2) {
     final diff = gradeDifference[i1]!.compareTo(gradeDifference[i2]!);
-    return diff != 0 ? diff : i1.name.compareTo(i2.name);
+    return diff != 0 ? diff : i1.bookName.compareTo(i2.bookName);
   });
 
   List<List<String>> matrix = [
     [
       for (final index in sortedIndexes)
-        '${index.name} ${gradeDifference[index]}'
+        '${index.bookName} ${gradeDifference[index]}'
     ]
   ];
 

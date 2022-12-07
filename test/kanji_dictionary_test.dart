@@ -1,5 +1,4 @@
 import 'package:kanji_dictionary/kanji_dictionary.dart';
-import 'package:kanji_dictionary/src/dictionary_index.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
@@ -138,6 +137,7 @@ void main() {
     test('dictionary index', () {
       expect(character.index.indexes[Indexes.halpern_kkld_2ed], 2966);
       expect(character.index.indexes[Indexes.heisig6], 1950);
+      expect(character.index.indexes[Indexes.nelson_c], 43);
     });
 
     test('sorting', () {
@@ -151,8 +151,14 @@ void main() {
           .take(5)
           .map(toLiteral)
           .toList();
+      final nelsonC = KanjiDictionary.instance
+          .charactersByIndex(Indexes.nelson_c)
+          .take(5)
+          .map(toLiteral)
+          .toList();
       expect(heisig6, ['一', '二', '三', '四', '五']);
       expect(halpernKanjiLearners, ['川', '小', '水', '心', '旧']);
+      expect(nelsonC, ['一', '丁', '兀', '于', '与']);
     });
   });
 }
