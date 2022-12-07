@@ -4,9 +4,9 @@ import 'package:xml/xml.dart';
 import 'book_index.dart';
 import 'kanjidic2xml.dart';
 
-/// A getter for use in [sort] to sort by difficulty using the index in
-/// [Book.henshall3]. This book gives the most beginner-friendly ordering of
-/// characters.
+/// A getter for use in [KanjiDictionary.sort] to sort by difficulty using the
+/// index in [Book.henshall3]. This book gives the most beginner-friendly
+/// ordering of characters.
 int? defaultDifficultyGetter(Character c) => c.index.indexes[Book.henshall3];
 
 /// A function that returns a [Comparable]? from a [Character], used in
@@ -28,7 +28,7 @@ class KanjiDictionary {
 
   /// Returns a copy of all the Dictionary's characters in the order of the XML.
   /// Note: a new list is returned so that you can safely manipulate it.
-  /// However, each Character is mutable.
+  /// However, each [Character] is mutable.
   List<Character> get characters => _characters.toList();
 
   /// Returns a sorted copy of the Dictionary's characters by difficulty. See
@@ -81,13 +81,13 @@ class KanjiDictionary {
 
   static KanjiDictionary? _instance;
 
-  /// An instance of KanjiDictionary with the embedded version of KANJIDIC2.
+  /// An instance of [KanjiDictionary] with the embedded version of KANJIDIC2.
   static KanjiDictionary get instance {
     _instance ??= KanjiDictionary.fromXml(XmlDocument.parse(kanjiDic2Xml));
     return _instance!;
   }
 
-  /// Returns a KanjiDictionary from a version of KANJIDIC2.
+  /// Returns a [KanjiDictionary] from a version of KANJIDIC2.
   factory KanjiDictionary.fromXml(XmlDocument doc) {
     final dic = doc.getElement('kanjidic2')!;
     final header = dic.getElement('header')!;

@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/kanji_dictionary.svg)](https://pub.dartlang.org/packages/kanji_dictionary)
 
-Dart implementation of KANJIDIC, a popular Kanji dictionary used by https://jisho.org/. See <https://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
+Dart implementation of KANJIDIC, a popular Kanji dictionary used by <https://jisho.org/>. See <https://www.edrdg.org/wiki/index.php/KANJIDIC_Project>.
 
 ## Features
 

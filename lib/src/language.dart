@@ -1,3 +1,4 @@
+/// Languages used for retrieving meanings.
 enum Language {
   english(code: 'en'),
   french(code: 'fr'),

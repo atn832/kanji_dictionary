@@ -36,6 +36,7 @@ enum Book {
   final String bookName;
 }
 
+/// Contains the index at which characters appear in Books.
 class BookIndex {
   final Map<Book, int> indexes;
 
@@ -45,12 +46,12 @@ class BookIndex {
     if (el == null) return BookIndex(indexes: {});
     return BookIndex(indexes: {
       for (final index in Book.values)
-        if (getIndex(el, index) != null) index: getIndex(el, index)!
+        if (_getIndex(el, index) != null) index: _getIndex(el, index)!
     });
   }
 }
 
-int? getIndex(XmlElement el, Book index) {
+int? _getIndex(XmlElement el, Book index) {
   XmlNode? indexNode;
   try {
     indexNode =
