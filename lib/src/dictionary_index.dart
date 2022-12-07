@@ -15,7 +15,8 @@ enum Indexes {
   sh_kk2,
   oneill_kk,
   gakken,
-  nelson_n
+  nelson_n,
+  nelson_c
 }
 
 class DictionaryIndex {

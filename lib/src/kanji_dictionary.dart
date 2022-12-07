@@ -29,6 +29,19 @@ class KanjiDictionary {
     return sortedCharacters;
   }
 
+  List<Character> charactersByGrade() {
+    final sortedCharacters = KanjiDictionary.instance.characters.toList();
+    sortedCharacters.sort((c1, c2) {
+      final i1 = c1.difficulty.grade;
+      final i2 = c2.difficulty.grade;
+      if (i1 == null && i2 == null) return c1.literal.compareTo(c2.literal);
+      if (i1 == null) return 1;
+      if (i2 == null) return -1;
+      return i1.compareTo(i2);
+    });
+    return sortedCharacters;
+  }
+
   static KanjiDictionary? _instance;
 
   /// An instance of KanjiDictionary with the embedded version of KANJIDIC2.
