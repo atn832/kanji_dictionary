@@ -1,4 +1,6 @@
 # When published as a library, we do not need to include the original XML file
 # since the library relies only on the generated kanjidic2xml.dart.
+build/
 bin/
 assets/
+table.md
