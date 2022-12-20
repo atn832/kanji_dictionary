@@ -30,8 +30,8 @@ void main() async {
   final character = kanjiDictionary.get('亜')!;
   print(character.literal);
   print(character.meanings[Language.english]);
-  print(character.readings[Reading.japaneseOnReading]);
-  print(character.readings[Reading.japaneseKunReading]);
+  print(character.readings[Reading.japaneseOn]);
+  print(character.readings[Reading.japaneseKun]);
   print(character.difficulty.jlpt);
 }
 ```

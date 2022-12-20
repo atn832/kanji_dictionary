@@ -4,8 +4,8 @@ enum Reading {
   koreanRomanized(code: 'korean_r'),
   koreanHangul(code: 'korean_h'),
   vietnamese(code: 'vietnam'),
-  japaneseOnReading(code: 'ja_on'),
-  japaneseKunReading(code: 'ja_kun');
+  japaneseOn(code: 'ja_on'),
+  japaneseKun(code: 'ja_kun');
 
   const Reading({required this.code});
 

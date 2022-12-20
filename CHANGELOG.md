@@ -1,3 +1,7 @@
+## 1.0.5+1
+
+Renamed `Reading.japaneseOnReading` to `Reading.japaneseOn` and `Reading.japaneseKunReading` to `Reading.japaneseKun` to align with the other enum values.
+
 ## 1.0.5
 
 - Implemented `KanjiDictionary.get(literal)`.

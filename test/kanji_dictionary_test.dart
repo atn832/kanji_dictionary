@@ -147,8 +147,8 @@ void main() {
     });
 
     test('readings', () {
-      expect(character.readings[Reading.japaneseKunReading], ['つ.ぐ']);
-      expect(character.readings[Reading.japaneseOnReading], ['ア']);
+      expect(character.readings[Reading.japaneseKun], ['つ.ぐ']);
+      expect(character.readings[Reading.japaneseOn], ['ア']);
       expect(character.readings[Reading.koreanHangul], ['아']);
     });
   });
