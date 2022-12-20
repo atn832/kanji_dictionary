@@ -14,7 +14,7 @@ const books = Book.values;
 //   Book.nelson_n
 // ];
 
-Getter bookGetter(Book book) => (Character c) => c.index.indexes[book];
+Getter bookGetter(Book book) => (Character c) => c.indexes[book];
 
 main() async {
   final dictionary = await KanjiDictionary.instance;

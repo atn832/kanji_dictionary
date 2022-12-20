@@ -6,4 +6,4 @@ export 'src/language.dart';
 export 'src/character.dart';
 export 'src/difficulty.dart';
 export 'src/reading.dart';
-export 'src/book_index.dart';
+export 'src/book.dart';

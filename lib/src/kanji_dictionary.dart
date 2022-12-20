@@ -3,13 +3,13 @@ import 'dart:isolate';
 import 'package:kanji_dictionary/src/character.dart';
 import 'package:xml/xml.dart';
 
-import 'book_index.dart';
+import 'book.dart';
 import 'kanjidic2xml.dart';
 
 /// A getter for use in [KanjiDictionary.sort] to sort by difficulty using the
 /// index in [Book.henshall3]. This book gives the most beginner-friendly
 /// ordering of characters.
-int? defaultDifficultyGetter(Character c) => c.index.indexes[Book.henshall3];
+int? defaultDifficultyGetter(Character c) => c.indexes[Book.henshall3];
 
 /// A function that returns a [Comparable]? from a [Character], used in
 /// [KanjiDictionary.sort].

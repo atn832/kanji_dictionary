@@ -141,9 +141,9 @@ void main() {
     });
 
     test('dictionary index', () {
-      expect(character.index.indexes[Book.halpern_kkld_2ed], 2966);
-      expect(character.index.indexes[Book.heisig6], 1950);
-      expect(character.index.indexes[Book.nelson_c], 43);
+      expect(character.indexes[Book.halpern_kkld_2ed], 2966);
+      expect(character.indexes[Book.heisig6], 1950);
+      expect(character.indexes[Book.nelson_c], 43);
     });
 
     test('readings', () {

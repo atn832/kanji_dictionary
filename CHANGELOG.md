@@ -1,7 +1,9 @@
 ## 1.0.4
 
 - Expose Readings.
-- Breaking change: Expose Meanings with a getter to match Readings, instead of `getMeanings`.
+- Breaking changes to match the `readings` getter:
+  - Instead of `character.getMeanings(Language.english)`, use `character.meanings[Language.english]`.
+  - Instead of `character.index.indexes`, use `character.indexes`.
 
 ## 1.0.3
 

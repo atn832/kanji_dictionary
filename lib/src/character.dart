@@ -1,5 +1,6 @@
 import 'package:xml/xml.dart';
 
+import 'book.dart';
 import 'book_index.dart';
 import 'difficulty.dart';
 import 'language.dart';
@@ -12,20 +13,24 @@ class Character {
   final Difficulty difficulty;
   final Meanings _meanings;
   final Readings _readings;
-  final BookIndex index;
+  final BookIndex _index;
 
   Character(
       {required this.literal,
       required this.difficulty,
       required Meanings meanings,
       required Readings readings,
-      required this.index})
+      required BookIndex index})
       : _meanings = meanings,
-        _readings = readings;
+        _readings = readings,
+        _index = index;
 
   Map<Language, List<String>> get meanings => _meanings.meanings;
 
   Map<Reading, List<String>> get readings => _readings.readings;
+
+  /// Contains the index at which the character appears in Books.
+  Map<Book, int> get indexes => _index.indexes;
 
   factory Character.fromXml(XmlElement el) {
     return Character(
