@@ -25,7 +25,5 @@ int? _getIndex(XmlElement el, Book index) {
   } catch (e) {
     indexNode = null;
   }
-  return indexNode != null ? int.parse(
-      // Work around weird nelson_n number '1664 3689' for kanji 瓣.
-      indexNode.text.split(' ').first) : null;
+  return indexNode != null ? int.parse(indexNode.text) : null;
 }
