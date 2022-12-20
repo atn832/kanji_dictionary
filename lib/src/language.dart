@@ -1,4 +1,4 @@
-/// Languages used for retrieving meanings.
+/// Enum used for retrieving meanings.
 enum Language {
   english(code: 'en'),
   french(code: 'fr'),
