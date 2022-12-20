@@ -9,6 +9,7 @@ Dart implementation of KANJIDIC, a popular Kanji dictionary used by <https://jis
 - lists out all the characters of KANJIDIC.
 - lists out ordered beginner-friendly list of Kanji.
 - meanings per language.
+- readings per language.
 - difficulty by JLPT level and grade.
 - index from 21 books.
 - can also parse a custom version of KANJIDIC xml.
@@ -29,6 +30,8 @@ void main() async {
   final character = kanjiDictionary.characters.first;
   print(character.literal);
   print(character.getMeanings(Language.english));
+  print(character.readings[Reading.japaneseOnReading]);
+  print(character.readings[Reading.japaneseKunReading]);
   print(character.difficulty.jlpt);
 }
 ```
@@ -38,6 +41,8 @@ Prints out:
 ```
 亜
 [Asia, rank next, come after, -ous]
+[ア]
+[つ.ぐ]
 1
 ```
 

@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Expose Readings.
+
 ## 1.0.3
 
 - Prevent a race condition when initializing singleton instance.

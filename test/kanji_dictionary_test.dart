@@ -93,7 +93,7 @@ $xmlCharacter
 ''';
 
 void main() {
-  group('KanjiDictionary', () {
+  group('KanjiDictionary tiny xml', () {
     late KanjiDictionary dictionary;
 
     setUp(() async {
@@ -118,15 +118,12 @@ void main() {
     });
   });
 
-  group('Deserialization', () {
-    late KanjiDictionary dictionary;
+  group('Deserialization of a single character', () {
     late Character character;
 
     setUp(() async {
       final el = XmlDocument.parse(xmlCharacter).rootElement;
       character = Character.fromXml(el);
-
-      dictionary = await KanjiDictionary.instance;
     });
 
     test('xml', () {
@@ -152,6 +149,20 @@ void main() {
       expect(character.index.indexes[Book.halpern_kkld_2ed], 2966);
       expect(character.index.indexes[Book.heisig6], 1950);
       expect(character.index.indexes[Book.nelson_c], 43);
+    });
+
+    test('readings', () {
+      expect(character.readings[Reading.japaneseKunReading], ['つ.ぐ']);
+      expect(character.readings[Reading.japaneseOnReading], ['ア']);
+      expect(character.readings[Reading.koreanHangul], ['아']);
+    });
+  });
+
+  group('Dictionary', () {
+    late KanjiDictionary dictionary;
+
+    setUp(() async {
+      dictionary = await KanjiDictionary.instance;
     });
 
     test('sorting', () {

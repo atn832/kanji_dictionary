@@ -4,18 +4,23 @@ import 'book_index.dart';
 import 'difficulty.dart';
 import 'language.dart';
 import 'meaning.dart';
+import 'reading.dart';
+import 'readings.dart';
 
 class Character {
   final String literal;
   final Difficulty difficulty;
   final List<Meaning> meanings;
+  final Readings _readings;
   final BookIndex index;
 
   Character(
       {required this.literal,
       required this.difficulty,
       required this.meanings,
-      required this.index});
+      required readings,
+      required this.index})
+      : _readings = readings;
 
   List<String> getMeanings(Language language) {
     return meanings
@@ -23,6 +28,8 @@ class Character {
         .map((m) => m.meaning)
         .toList();
   }
+
+  Map<Reading, List<String>> get readings => _readings.readings;
 
   factory Character.fromXml(XmlElement el) {
     final readingMeaning = el.getElement('reading_meaning');
@@ -36,6 +43,7 @@ class Character {
                 .map((e) => Meaning.fromXml(e))
                 .toList()
             : [],
+        readings: Readings.fromXml(el),
         index: BookIndex.fromXml(el.getElement('dic_number')));
   }
 }
