@@ -4,6 +4,7 @@
 - Breaking changes to match the `readings` getter:
   - Instead of `character.getMeanings(Language.english)`, use `character.meanings[Language.english]`.
   - Instead of `character.index.indexes`, use `character.indexes`.
+- Updated the embedded dictionary to version 2022-353 (2022-12-19).
 
 ## 1.0.3
 
