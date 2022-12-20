@@ -10,20 +10,15 @@ class BookIndex {
 
   factory BookIndex.fromXml(XmlElement? el) {
     if (el == null) return BookIndex(indexes: {});
-    return BookIndex(indexes: {
-      for (final index in Book.values)
-        if (_getIndex(el, index) != null) index: _getIndex(el, index)!
-    });
+    Map<Book, int> indexes = {};
+    for (final c in el.findElements('dic_ref')) {
+      try {
+        final b = Book.fromString(c.getAttribute('dr_type')!);
+        indexes[b] = int.parse(c.text);
+      } catch (_) {
+        // We intentionally skip some books like oneill_names.
+      }
+    }
+    return BookIndex(indexes: indexes);
   }
-}
-
-int? _getIndex(XmlElement el, Book index) {
-  XmlNode? indexNode;
-  try {
-    indexNode =
-        el.children.firstWhere((c) => c.getAttribute('dr_type') == index.code);
-  } catch (e) {
-    indexNode = null;
-  }
-  return indexNode != null ? int.parse(indexNode.text) : null;
 }

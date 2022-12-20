@@ -32,4 +32,7 @@ enum Book {
   /// The code in attribute dr_type.
   final String code;
   final String bookName;
+
+  factory Book.fromString(String code) =>
+      Book.values.firstWhere((l) => l.code == code);
 }
