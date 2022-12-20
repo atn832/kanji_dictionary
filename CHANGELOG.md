@@ -1,6 +1,7 @@
 ## 1.0.4
 
 - Expose Readings.
+- Expose Meanings with a getter to match Readings.
 
 ## 1.0.3
 

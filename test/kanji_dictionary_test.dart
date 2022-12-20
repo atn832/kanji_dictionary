@@ -130,15 +130,15 @@ void main() {
       expect(character.literal, '亜');
       expect(character.difficulty.jlpt, 1);
       expect(character.difficulty.grade, 8);
-      final meanings = character.meanings;
-      expect(meanings.length, 15);
-      expect(meanings.first.meaning, 'Asia');
-      expect(meanings.first.language, Language.english);
-      expect(meanings[4].meaning, 'Asie');
-      expect(meanings[4].language, Language.french);
     });
 
-    test('getMeanings', () {
+    test('meanings', () {
+      final meanings = character.meanings;
+      expect(meanings.length, 4);
+      expect(meanings[Language.english],
+          ['Asia', 'rank next', 'come after', '-ous']);
+      expect(meanings[Language.french], ['Asie', 'suivant', 'sub-', 'sous-']);
+
       expect(character.getMeanings(Language.english),
           ['Asia', 'rank next', 'come after', '-ous']);
       expect(character.getMeanings(Language.french),
