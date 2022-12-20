@@ -138,11 +138,6 @@ void main() {
       expect(meanings[Language.english],
           ['Asia', 'rank next', 'come after', '-ous']);
       expect(meanings[Language.french], ['Asie', 'suivant', 'sub-', 'sous-']);
-
-      expect(character.getMeanings(Language.english),
-          ['Asia', 'rank next', 'come after', '-ous']);
-      expect(character.getMeanings(Language.french),
-          ['Asie', 'suivant', 'sub-', 'sous-']);
     });
 
     test('dictionary index', () {

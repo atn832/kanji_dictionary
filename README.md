@@ -29,7 +29,7 @@ void main() async {
   final kanjiDictionary = await KanjiDictionary.instance;
   final character = kanjiDictionary.characters.first;
   print(character.literal);
-  print(character.getMeanings(Language.english));
+  print(character.meanings[Language.english]);
   print(character.readings[Reading.japaneseOnReading]);
   print(character.readings[Reading.japaneseKunReading]);
   print(character.difficulty.jlpt);

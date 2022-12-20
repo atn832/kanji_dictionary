@@ -23,10 +23,6 @@ class Character {
       : _meanings = meanings,
         _readings = readings;
 
-  List<String> getMeanings(Language language) {
-    return _meanings.meanings[language] ?? [];
-  }
-
   Map<Language, List<String>> get meanings => _meanings.meanings;
 
   Map<Reading, List<String>> get readings => _readings.readings;
