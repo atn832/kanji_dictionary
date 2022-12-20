@@ -27,7 +27,7 @@ import 'package:kanji_dictionary/kanji_dictionary.dart';
 
 void main() async {
   final kanjiDictionary = await KanjiDictionary.instance;
-  final character = kanjiDictionary.characters.first;
+  final character = kanjiDictionary.get('亜')!;
   print(character.literal);
   print(character.meanings[Language.english]);
   print(character.readings[Reading.japaneseOnReading]);

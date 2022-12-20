@@ -1,3 +1,8 @@
+## 1.0.5
+
+- Implemented `KanjiDictionary.get(literal)`.
+- Updated the embedded dictionary to version 2022-354 (2022-12-20).
+
 ## 1.0.4
 
 - Expose `readings`.

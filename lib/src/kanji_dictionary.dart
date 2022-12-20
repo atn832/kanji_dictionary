@@ -19,19 +19,22 @@ class KanjiDictionary {
   final int fileVersion;
   final String databaseVersion;
   final DateTime creationTime;
-  final List<Character> _characters;
+  final Map<String, Character> _characters;
 
   KanjiDictionary(
       {required this.fileVersion,
       required this.databaseVersion,
       required this.creationTime,
       required List<Character> characters})
-      : _characters = characters;
+      : _characters =
+            Map.fromEntries(characters.map((c) => MapEntry(c.literal, c)));
+
+  Character? get(String literal) => _characters[literal];
 
   /// Returns a copy of all the Dictionary's characters in the order of the XML.
   /// Note: a new list is returned so that you can safely manipulate it.
   /// However, each [Character] is mutable.
-  List<Character> get characters => _characters.toList();
+  List<Character> get characters => _characters.values.toList();
 
   /// Returns a sorted copy of the Dictionary's characters by difficulty. See
   /// [defaultDifficultyGetter].

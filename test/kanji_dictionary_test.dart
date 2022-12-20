@@ -160,6 +160,10 @@ void main() {
       dictionary = await KanjiDictionary.instance;
     });
 
+    test('get', () {
+      expect(dictionary.get('友')!.meanings[Language.english]!.first, 'friend');
+    });
+
     test('sorting', () {
       final easiestKanji =
           dictionary.charactersByDifficulty.take(5).map(toLiteral).toList();
